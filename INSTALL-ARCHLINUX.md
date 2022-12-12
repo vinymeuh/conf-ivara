@@ -178,16 +178,16 @@ In **/etc/sudoers** uncomment:
 ## Setup encrypted partition for user home
 
 ```
-mkdir /home/viny
-mount /home/viny
-chown viny:viny /home/viny
-chmod 700 /home/viny
-```
-
-```
 cryptsetup luksFormat /dev/sda4
 cryptsetup open /dev/sda4 home-viny
 mkfs.ext4 /dev/mapper/hom-viny
+```
+
+```
+mkdir /home/viny
+mount -t ext4 /dev/mapper/home-viny /home/viny
+chown viny:viny /home/viny
+chmod 700 /home/viny
 ```
 
 Edit **/etc/pam.d/system-login**
@@ -226,10 +226,12 @@ Before=user@1000.service
 Where=/home/viny
 What=/dev/mapper/home-viny
 Type=ext4
-Options=defaults
+Options=defaults,uid=viny,gid=viny
+DirectoryMode=0700
 
 [Install]
 RequiredBy=user@1000.service
 ```
 
 **Note**: locking after unmout will be setup later with Ansible.
+

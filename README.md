@@ -8,18 +8,21 @@
 
 2. Install **pyenv** using [pyenv installer](https://github.com/pyenv/pyenv-installer)
 
-3. Create Python **virtualenv**:
-
-```shell
-pyenv virtualenv system conf-ivara
-```
-
-4. Install **conf-ivara**
+3. Download **conf-ivara**
 
 ```shell
 cd $HOME
 git clone https://github.com/vinymeuh/conf-ivara
+```
+
+4. Setup virtualenv for Ansible:
+
+```shell
+source $HOME/conf-ivara/bootstrap_env.sh
+pyenv virtualenv system conf-ivara
 cd conf-ivara
 pyenv version  # must be conf-ivara, see .python-version
 pip install -r requirements.txt
+...
+ansible --version
 ```
