@@ -1,0 +1,10 @@
+- name: kernel > Install kernel & firmware packages
+  community.general.pacman: name={{ item }}
+  with_items:
+    - linux-lts,linux-lts-headers
+    - linux-firmware
+    - intel-ucode
+
+# systemd-bootd is included with systemd
+
+## TODO systemd-bootd setup
