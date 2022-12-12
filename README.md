@@ -26,3 +26,16 @@ pip install -r requirements.txt
 ...
 ansible --version
 ```
+
+### Ansible playbooks
+
+* **Base system** ```setup-root-base.yml```, run with become_user root
+* **User application** ```setup-root-userapps.yml```, run with become_user root
+* **User setup** ```setup-user.yml```, run as user
+
+```shell
+cd ~/conf-nyx
+ansible-playbook setup-root-base.yml -K [--check] 
+ansible-playbook setup-root-userapps.yml -K [--check]
+ansible-playbook setup-user.yml [--check]
+```
