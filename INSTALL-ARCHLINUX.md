@@ -9,6 +9,7 @@ Version: **R0IET68W (1.46) 2022-07-04**
 Config:
 
 - Intel (R) AMT / Intel (R) AM Control set to **Disabled**
+- Display / Total Graphics Memory set to **512MB**
 
 Security:
 
