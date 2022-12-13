@@ -13,3 +13,4 @@
     - {import_role: name=root_base tasks_from=printer, tags: ['printer']}
     #- {import_role: name=root_base tasks_from=fonts,   tags: ['fonts']}
     - {import_role: name=root_base tasks_from=gnome,   tags: ['gnome']}
+    - {import_role: name=root_base tasks_from=userapps,   tags: ['userapps']}
