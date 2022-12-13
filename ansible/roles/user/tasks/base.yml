@@ -1,0 +1,10 @@
+
+# Directory ~/Applications used for:
+#  - Qt
+#  - VSCode-linux-x64
+- name: base > Create my base directories
+  ansible.builtin.file: path={{ item }} state=directory mode=0700
+  with_items:
+    - ~/Applications
+    - ~/Work4Me
+    - ~/Work@Home
