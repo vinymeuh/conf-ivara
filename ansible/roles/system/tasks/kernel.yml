@@ -1,6 +1,7 @@
 - name: kernel > Install kernel & firmware packages
   community.general.pacman: name={{ item }}
   with_items:
+    - linux,linux-headers
     - linux-lts,linux-lts-headers
     - linux-firmware
     - intel-ucode
