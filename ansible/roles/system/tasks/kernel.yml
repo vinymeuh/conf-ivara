@@ -6,6 +6,19 @@
     - linux-firmware
     - intel-ucode
 
-# systemd-bootd is included with systemd
+# systemd-boot is included with systemd
+- block:
+  - name: bootd > Check systemd-boot is installed
+    ansible.builtin.command: /usr/bin/bootctl is-installed
+    register: bootctl_is_installed
 
-## TODO systemd-bootd setup
+  - name: bootd > Install systemd-boot into the EFI system partition
+    ansible.builtin.command: /usr/bin/bootctl install
+    when: bootctl_is_installed.stdout != "yes"
+  
+  - name: bootd > Copy configuration files under /boot/loader
+    ansible.builtin.copy: src=bootd/{{ item }} dest=/boot/loader/{{ item }} mode=0755
+    with_items:
+      - loader.conf
+      - entries/arch-lts.conf
+      - entries/arch-latest.conf
