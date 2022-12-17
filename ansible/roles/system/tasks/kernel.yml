@@ -11,6 +11,7 @@
   - name: bootd > Check systemd-boot is installed
     ansible.builtin.command: /usr/bin/bootctl is-installed
     register: bootctl_is_installed
+    changed_when: false
 
   - name: bootd > Install systemd-boot into the EFI system partition
     ansible.builtin.command: /usr/bin/bootctl install
@@ -22,3 +23,5 @@
       - loader.conf
       - entries/arch-lts.conf
       - entries/arch-latest.conf
+      - entries/arch-lts-recovery.conf
+      - entries/arch-latest-recovery.conf
