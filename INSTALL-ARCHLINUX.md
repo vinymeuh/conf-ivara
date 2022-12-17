@@ -52,7 +52,21 @@ iwctl
 
 * Create disk layout
 
-**TODO**
+```
+Disk /dev/sda: 238.47 GiB, 256060514304 bytes, 500118192 sectors
+Disk model: SAMSUNG MZ7LN256
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+Disklabel type: gpt
+Disk identifier: 624A75F3-F987-40B5-988F-6E5BA0CED4EE
+
+Device         Start       End   Sectors   Size Type
+/dev/sda1       2048   1128447   1126400   550M EFI System
+/dev/sda2    1128448  43071487  41943040    20G Linux swap
+/dev/sda3   43071488 210843647 167772160    80G Linux root (x86-64)
+/dev/sda4  210843648 500117503 289273856 137.9G Linux user's home
+```
 
 * Create filesystems
 
@@ -97,7 +111,7 @@ locale-gen
 * Set the keyboard layout  
 
 ```
-echo "KEYMAP=fr" > etc/vconsole.conf
+echo "KEYMAP=fr" > /etc/vconsole.conf
 ```
 
 * Set hostname
@@ -129,7 +143,15 @@ cp /usr/share/systemd/bootctl/arch.conf /boot/efi/loader/entries/arch-lts.conf
 
 Adapt **/boot/efi/loader/entries/arch-lts.conf**
 
-**TODO**
+```
+title   Arch Linux LTS
+linux   /vmlinuz-linux-lts
+initrd  /intel-ucode.img
+initrd  /initramfs-linux-lts.img
+options root=UUID=7036bf75-ca61-4ff7-b0db-513143bb6edc rootfstype=ext4 add_efi_memmap
+```
+
+Note: find UUID with ```blkid```.
 
 Edit **/boot/efi/loader/loader.conf**:
 
@@ -235,4 +257,3 @@ RequiredBy=user@1000.service
 ```
 
 **Note**: locking after unmout will be setup later with Ansible.
-
