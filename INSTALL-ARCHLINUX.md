@@ -151,7 +151,7 @@ initrd  /initramfs-linux-lts.img
 options root=UUID=7036bf75-ca61-4ff7-b0db-513143bb6edc rootfstype=ext4 add_efi_memmap
 ```
 
-Note: find UUID with ```blkid```.
+**Note**: find UUID with ```blkid```.
 
 Edit **/boot/efi/loader/loader.conf**:
 
@@ -181,7 +181,7 @@ nmcli device wifi list
 nmcli device wifi connect <SSID> password 'xxxxxx'
 ```
 
-**Note**: this configuration will be change later to avoid passwords in clear text in the NetworkManager connection files.
+**Note**: this configuration will be change later to avoid passwords in clear text in the NetworkManager connection files (see ```/etc/NetworkManager/system-connections```).
 
 ## User creation
 
