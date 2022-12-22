@@ -37,3 +37,40 @@ cd ~/conf-nyx
 ansible-playbook setup-system.yml -K [--check] 
 ansible-playbook setup-user.yml [--check]
 ```
+
+## Notes & tips
+
+### nmcli
+
+```shell
+nmcli device status
+nmcli -p con show <SSID>
+```
+
+```shell
+nmcli dev wifi list
+```
+
+### firewalld
+
+```shell
+firewall-cmd --get-default-zone
+```
+
+```shell
+firewall-cmd --get-active-zones
+firewall-cmd --zone=home --change-interface=...
+```
+
+```shell
+firewall-cmd --zone=home --list-all
+```
+
+### Systemd user timers
+
+See:
+
+```shell
+systemctl --user list-timers --all
+journalctl -u --user-unit
+```
