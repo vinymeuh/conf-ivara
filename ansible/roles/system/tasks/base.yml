@@ -1,3 +1,6 @@
+- name: LANG=C for root
+  ansible.builtin.lineinfile: path=/root/.bash_profile mode=0600 create=true line='export LANG=C' state=present
+
 - name: base > Install base tools
   community.general.pacman: name={{ packages | join(',') }}
   vars:
