@@ -70,6 +70,13 @@
     become: yes
     become_user: aur_builder
 
+# firewall
+- name: firewall > Install Firewalld
+  community.general.pacman: name=firewalld
+
+- name: firewall > Enable & Start Firewalld service
+  ansible.builtin.systemd: name=firewalld enabled=yes state=started
+
 # audio
 - name: audio > Install PulseAudio
   community.general.pacman: name=pulseaudio,pulseaudio-alsa,pulsemixer
