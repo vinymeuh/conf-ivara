@@ -83,7 +83,7 @@ mkfs.ext4 /dev/sda4
 mount /dev/sda3 /mnt
 mkdir -p /mnt/boot
 mount /dev/sda1 /mnt/boot
-pacstrap /mnt base linux-lts linux-firmware intel-ucode networkmanager vim
+pacstrap /mnt base linux-lts linux-firmware intel-ucode networkmanager neovim
 genfstab -U /mnt > /mnt/etc/fstab
 arch-chroot /mnt
 ```

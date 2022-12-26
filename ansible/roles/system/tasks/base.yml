@@ -16,6 +16,7 @@
       - lm_sensors
       - lshw
       - nmap
+      - neovim
       - man-db,man-pages
       - openssh
       - pacman-contrib,pacutils,expac
