@@ -109,3 +109,16 @@
       key: "/org/gnome/desktop/app-folders/folders/System/apps" 
       value: "{{ folder_system_apps | string }}"
       state: present
+
+- block:
+  - name: gnome > Create ~/.config/systemd/user if any
+    ansible.builtin.file: path=~/.config/systemd/user state=directory mode=0700
+  - name: gnome > Install switch-gnome-wallpaper systemd service files
+    ansible.builtin.copy: src=systemd/{{ item }} dest=~/.config/systemd/user/{{ item }} mode=0400
+    loop:
+      - switch-gnome-wallpaper.service
+      - switch-gnome-wallpaper.timer
+  - name: gnome > Start switch-gnome-wallpaper.service
+    ansible.builtin.systemd: name=switch-gnome-wallpaper.service scope=user daemon_reload=yes state=started
+  - name: gnome > Enable switch-gnome-wallpaper.timer
+    ansible.builtin.systemd: name=switch-gnome-wallpaper.timer scope=user enabled=yes state=started

@@ -1,0 +1,9 @@
+[Unit]
+Description=Switch wallpaper each hours
+
+[Timer]
+OnCalendar=*:00:00
+Unit=switch-gnome-wallpaper.service
+
+[Install]
+WantedBy=timers.target

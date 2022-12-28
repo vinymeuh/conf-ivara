@@ -1,0 +1,10 @@
+[Unit]
+Description=Switch Gnome Wallpaper
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/conf-ivara/bin/switch-gnome-wallpaper
+
+[Install]
+WantedBy=default.target
