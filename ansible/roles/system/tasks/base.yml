@@ -15,8 +15,9 @@
       - git
       - lm_sensors
       - lshw
-      - nmap
       - neovim
+      - networkmanager
+      - nmap
       - man-db,man-pages
       - openssh
       - pacman-contrib,pacutils,expac
