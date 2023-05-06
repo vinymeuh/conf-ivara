@@ -14,7 +14,9 @@
       - fzf
       - git
       - lm_sensors
+      - lsof
       - lshw
+      - lsb-release
       - neovim
       - networkmanager
       - nmap
@@ -28,8 +30,15 @@
       - tree
       - unrar,unzip,xz
       - usbutils
+      - vi
       - wget
       - zsh,zsh-autosuggestions
+
+- name: base > Remove some defaults package
+  community.general.pacman: name={{ packages | join(',') }} state=absent
+  vars:
+    packages:
+      - vim,vim-runtime
 
 - name: base > Enable locale
   ansible.builtin.lineinfile:
@@ -83,8 +92,8 @@
   ansible.builtin.systemd: name=firewalld enabled=yes state=started
 
 # audio
-- name: audio > Install PulseAudio
-  community.general.pacman: name=pulseaudio,pulseaudio-alsa,pulsemixer
+- name: audio > Install Pipewire
+  community.general.pacman: name=pipewire,pipewire-pulse,pulsemixer
 
 # video
 - block:
@@ -118,6 +127,7 @@
         - ttf-liberation
         - ttf-opensans
         - ttf-roboto
+        - ttf-iosevkaterm-nerd
   - name: base > Enable fonts presets
     ansible.builtin.file: state=link src="/usr/share/fontconfig/conf.avail/{{ item }}" path="/etc/fonts/conf.d/{{ item }}"
     with_items:

@@ -33,7 +33,7 @@ ansible --version
 * **User setup** ```setup-user.yml```, run as user
 
 ```shell
-cd ~/conf-nyx
+cd ~/conf-ivara
 ansible-playbook setup-system.yml -K [--check] 
 ansible-playbook setup-user.yml [--check]
 ```

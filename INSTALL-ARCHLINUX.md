@@ -194,19 +194,19 @@ passwd viny
 
 In **/etc/sudoers** uncomment:
 
-```
+```text
 %wheel ALL=(ALL:ALL) ALL
 ```
 
 ## Setup encrypted partition for user home
 
-```
+```text
 cryptsetup luksFormat /dev/sda4
 cryptsetup open /dev/sda4 home-viny
 mkfs.ext4 /dev/mapper/hom-viny
 ```
 
-```
+```text
 mkdir /home/viny
 mount -t ext4 /dev/mapper/home-viny /home/viny
 chown viny:viny /home/viny
@@ -215,7 +215,7 @@ chmod 700 /home/viny
 
 Edit **/etc/pam.d/system-login**
 
-```
+```text
 ...
 auth       include    system-auth
 auth       optional   pam_exec.so expose_authtok /etc/pam_cryptsetup.sh
@@ -226,7 +226,7 @@ account    required   pam_access.so
 
 Create executable script **/etc/pam_cryptsetup.sh**:
 
-```
+```shell
 #!/bin/sh
 
 CRYPT_USER=viny"
@@ -240,7 +240,7 @@ fi
 
 Create **/etc/systemd/system/home-viny.mount**:
 
-```
+```text
 [Unit]
 Requires=user@1000.service
 Before=user@1000.service
@@ -249,8 +249,7 @@ Before=user@1000.service
 Where=/home/viny
 What=/dev/mapper/home-viny
 Type=ext4
-Options=defaults,uid=viny,gid=viny
-DirectoryMode=0700
+Options=defaults
 
 [Install]
 RequiredBy=user@1000.service
