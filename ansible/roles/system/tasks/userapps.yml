@@ -15,6 +15,7 @@
       - keepassxc
       - ncmpcpp
       - vlc
+      - neovim,helix
 
 - name: userapps > Install base dev tools
   community.general.pacman: name={{ packages | join(',') }}
