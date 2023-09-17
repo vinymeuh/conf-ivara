@@ -1,0 +1,9 @@
+#
+# ~/.bash_profile
+#
+
+export LC_ALL=C
+
+alias vi='vim'
+
+[[ -f ~/.bashrc ]] && . ~/.bashrc
