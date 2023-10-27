@@ -1,44 +1,43 @@
-- name: LANG=C for root
-  ansible.builtin.lineinfile: path=/root/.bash_profile mode=0600 create=true line='export LANG=C' state=present
+- name: Copy .bash_profile for root
+  ansible.builtin.copy: src=root/bash_profile dest=~root/.bash_profile mode=0400
 
 - name: base > Install base tools
   community.general.pacman: name={{ packages | join(',') }}
   vars:
     packages:
       - acpi
-      - base-devel
+      - avahi,nss-mdns
+      - base-devel,cmake,gdb
+      - bluez,bluez-utils
       - bridge-utils
+      - cpio
       - curl
       - dmidecode
       - exfat-utils
+      - flatpak
       - fzf
-      - git
+      - git,python-pre-commit
       - lm_sensors
       - lsof
       - lshw
       - lsb-release
-      - neovim
+      - man-db,man-pages
       - networkmanager
       - nmap
-      - man-db,man-pages
       - openssh
       - pacman-contrib,pacutils,expac
       - python,python-psutil,python-wheel
       - rsync
-      - screen
+      - screen,minicom
+      - smartmontools
       - smbclient
+      - sysfsutils
       - tree
       - unrar,unzip,xz
       - usbutils
-      - vi
+      - vim
       - wget
       - zsh,zsh-autosuggestions
-
-- name: base > Remove some defaults package
-  community.general.pacman: name={{ packages | join(',') }} state=absent
-  vars:
-    packages:
-      - vim,vim-runtime
 
 - name: base > Enable locale
   ansible.builtin.lineinfile:
@@ -85,11 +84,11 @@
     become_user: aur_builder
 
 # firewall
-- name: firewall > Install Firewalld
-  community.general.pacman: name=firewalld
-
-- name: firewall > Enable & Start Firewalld service
-  ansible.builtin.systemd: name=firewalld enabled=yes state=started
+- block:
+  - name: firewall > Install Firewalld
+    community.general.pacman: name=firewalld
+  - name: firewall > Enable & Start Firewalld service
+    ansible.builtin.systemd: name=firewalld enabled=yes state=started
 
 # audio
 - name: audio > Install Pipewire

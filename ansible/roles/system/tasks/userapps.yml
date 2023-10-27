@@ -1,34 +1,33 @@
 - name: userapps > User viny
-  ansible.builtin.user:
-    name: viny
-    group: viny
-    shell: /bin/zsh
-    groups: uucp,wheel
-    append: yes
+  ansible.builtin.user: name=viny group=viny shell=/bin/zsh groups=uucp,wheel append=yes
 
-- name: userapps > Install my favorite apps
+- name: userapps > Install base apps
   community.general.pacman: name={{ packages | join(',') }}
   vars:
     packages:
+      - chezmoi
+      - chromium
       - firefox
       - thunderbird,thunderbird-i18n-fr 
+      - gnucash
+      - hunspell,hunspell-fr
+      - inkscape
       - keepassxc
       - ncmpcpp
+      - pdfarranger
+      - quodlibet
       - vlc
-      - neovim,helix
 
-- name: userapps > Install base dev tools
+- name: userapps > Install apps for my Shell IDE 
   community.general.pacman: name={{ packages | join(',') }}
   vars:
     packages:
-      - cmake
-      - gdb
-      - lcov
-      - minicom
-      - perf
+      - helix
+      - wezterm
+      - xsel
 
 - name: userapps > Install C++ dev tools
-  community.general.pacman: name=heaptrack
+  community.general.pacman: name=heaptrack,lcov,perf
 
 - name: userapps > Install JRE OpenJDK
   community.general.pacman: name=jre-openjdk
